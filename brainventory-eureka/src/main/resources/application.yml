@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: brainventory-eureka
+  config:
+    import: optional:configserver:http://localhost:8888

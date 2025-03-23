@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: brainventory-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: humanResources
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/employee/**
+        - id: infrastructure
+          uri: http://localhost:9000
+          predicates:
+            - Path=/api/building/**
+            - Path=/api/room/**
+            - Path=/api/room-device/**
+        - id: assets
+          uri: http://localhost:9010
+          predicates:
+            - Path=/api/it-device/**
+            - Path=/api/io-device/**
+        - id: auth
+          uri: http://localhost:9020
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

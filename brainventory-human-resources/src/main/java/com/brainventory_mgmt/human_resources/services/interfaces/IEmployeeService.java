@@ -1,0 +1,15 @@
+package com.brainventory_mgmt.human_resources.services.interfaces;
+
+import com.brainventory_mgmt.human_resources.dto.employee.EmployeeDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.EmployeeListDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.EmployeeRequestDTO;
+
+import java.util.List;
+
+public interface IEmployeeService {
+    EmployeeRequestDTO saveEmployee(EmployeeRequestDTO employeeRequestDTO);
+    List<EmployeeListDTO> findAll();
+    EmployeeDTO findById(Long id);
+    EmployeeRequestDTO updateEmployee(EmployeeRequestDTO employeeRequestDTO, Long id);
+    void deleteEmployee(Long id);
+}
