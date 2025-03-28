@@ -2,7 +2,10 @@ package com.brainventory_mgmt.infrastructure.controllers;
 
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingDTO;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingListDTO;
+import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IBuildingService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/building")
+@RequiredArgsConstructor
 public class BuildingRestController {
     private final IBuildingService buildingService;
-
-    public BuildingRestController(IBuildingService buildingService){
-        this.buildingService = buildingService;
-    }
 
     @PostMapping
     public ResponseEntity<BuildingDTO> saveBuilding(@RequestBody BuildingDTO buildingDTO){
@@ -47,5 +47,10 @@ public class BuildingRestController {
         } catch(RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/references")
+    public ResponseEntity<List<BuildingReferenceDTO>> findAllReferences(){
+        return new ResponseEntity<>(buildingService.findAllReferences(), HttpStatus.OK);
     }
 }

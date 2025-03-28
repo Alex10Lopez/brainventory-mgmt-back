@@ -4,6 +4,8 @@ import com.brainventory_mgmt.assets.dto.ioDevice.IODeviceDTO;
 import com.brainventory_mgmt.assets.dto.ioDevice.IODeviceListDTO;
 import com.brainventory_mgmt.assets.dto.ioDevice.IODeviceRequestDTO;
 import com.brainventory_mgmt.assets.services.interfaces.IIODeviceService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/io-device")
+@RequiredArgsConstructor
 public class IODeviceRestController {
     private final IIODeviceService ioDeviceService;
-
-    public IODeviceRestController(IIODeviceService ioDeviceService){
-        this.ioDeviceService = ioDeviceService;
-    }
 
     @PostMapping
     public ResponseEntity<IODeviceRequestDTO> saveIODevice(@RequestBody IODeviceRequestDTO ioDeviceRequestDTO){

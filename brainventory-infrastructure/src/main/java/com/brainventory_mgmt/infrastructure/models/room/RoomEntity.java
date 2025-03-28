@@ -1,7 +1,7 @@
 package com.brainventory_mgmt.infrastructure.models.room;
 
 import com.brainventory_mgmt.infrastructure.models.building.BuildingEntity;
-import com.brainventory_mgmt.infrastructure.models.department.DeparmentEntity;
+import com.brainventory_mgmt.infrastructure.models.department.DepartmentEntity;
 import com.brainventory_mgmt.infrastructure.models.room.roomType.RoomTypeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,7 +27,7 @@ public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long idRoom;
+    Long id;
 
     String image;
 
@@ -60,5 +60,5 @@ public class RoomEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "room_departments", joinColumns = @JoinColumn(name = "id_room"), inverseJoinColumns = @JoinColumn(name = "id_department"))
-    List<DeparmentEntity> departments;
+    List<DepartmentEntity> departments;
 }

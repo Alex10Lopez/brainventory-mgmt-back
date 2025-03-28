@@ -3,6 +3,7 @@ package com.brainventory_mgmt.infrastructure.controllers;
 import com.brainventory_mgmt.infrastructure.dto.room.RoomDTO;
 import com.brainventory_mgmt.infrastructure.dto.room.RoomRequestDTO;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IRoomService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +12,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/room")
+@RequiredArgsConstructor
 public class RoomRestController {
     private final IRoomService roomService;
-
-    public RoomRestController(IRoomService roomService){
-        this.roomService = roomService;
-    }
 
     @PostMapping
     public ResponseEntity<RoomRequestDTO> saveRoom(@RequestBody RoomRequestDTO roomRequestDTO){
@@ -39,7 +37,7 @@ public class RoomRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RoomDTO> deleteRoom(@PathVariable Long id){
+    public ResponseEntity<Void> deleteRoom(@PathVariable Long id){
         try {
             roomService.deleteRoom(id);
 

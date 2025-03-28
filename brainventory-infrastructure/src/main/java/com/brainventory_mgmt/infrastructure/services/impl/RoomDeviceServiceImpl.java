@@ -6,18 +6,16 @@ import com.brainventory_mgmt.infrastructure.dto.room.RoomReferenceDTO;
 import com.brainventory_mgmt.infrastructure.models.room.RoomEntity;
 import com.brainventory_mgmt.infrastructure.repository.IRoomRepository;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IRoomDeviceService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RoomDeviceServiceImpl implements IRoomDeviceService {
     private final IRoomRepository roomRepository;
     private final ModelMapper modelMapper;
-
-    public RoomDeviceServiceImpl(IRoomRepository roomRepository, ModelMapper modelMapper){
-        this.roomRepository = roomRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public DeviceRoomDTO linkRoomById(Long id) {

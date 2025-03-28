@@ -5,6 +5,8 @@ import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceListDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceRequestDTO;
 import com.brainventory_mgmt.assets.services.impl.ITDeviceServiceImpl;
 import com.brainventory_mgmt.assets.services.interfaces.IITDeviceService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +15,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/it-device")
+@RequiredArgsConstructor
 public class ITDeviceRestController {
     private final IITDeviceService itDeviceService;
-
-    public ITDeviceRestController(IITDeviceService itDeviceService){
-        this.itDeviceService = itDeviceService;
-    }
 
     @PostMapping
     public ResponseEntity<ITDeviceRequestDTO> saveITDevice(@RequestBody ITDeviceRequestDTO itDeviceRequestDTO){

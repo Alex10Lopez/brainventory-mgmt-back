@@ -4,6 +4,7 @@ import com.brainventory_mgmt.human_resources.dto.employee.EmployeeDTO;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeListDTO;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeRequestDTO;
 import com.brainventory_mgmt.human_resources.services.interfaces.IEmployeeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employee")
+@RequiredArgsConstructor
 public class EmployeeRestController {
     private final IEmployeeService employeeService;
-
-    public EmployeeRestController(IEmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @PostMapping
     public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO){

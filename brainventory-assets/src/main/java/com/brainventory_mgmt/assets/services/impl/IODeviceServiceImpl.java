@@ -8,6 +8,8 @@ import com.brainventory_mgmt.assets.models.ioDevice.IODeviceEntity;
 import com.brainventory_mgmt.assets.repository.IHardwareDetailsRepository;
 import com.brainventory_mgmt.assets.repository.IIODeviceRepository;
 import com.brainventory_mgmt.assets.services.interfaces.IIODeviceService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +17,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class IODeviceServiceImpl implements IIODeviceService {
     private final IIODeviceRepository ioDeviceRepository;
     private final IHardwareDetailsRepository hardwareDetailsRepository;
     private final ModelMapper modelMapper;
-
-    public IODeviceServiceImpl(IIODeviceRepository ioDeviceRepository, IHardwareDetailsRepository hardwareDetailsRepository, ModelMapper modelMapper){
-        this.ioDeviceRepository = ioDeviceRepository;
-        this.hardwareDetailsRepository = hardwareDetailsRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public IODeviceRequestDTO saveIODevice(IODeviceRequestDTO ioDeviceRequestDTO) {

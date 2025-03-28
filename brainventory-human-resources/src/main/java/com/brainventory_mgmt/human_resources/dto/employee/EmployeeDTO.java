@@ -53,6 +53,4 @@ public class EmployeeDTO {
     List<JobRoleReferenceDTO> jobRoles;
     List<EmployeeContactDTO> contacts;
     List<EmployeeAddressDTO> addresses;
-
-    String password;
 }

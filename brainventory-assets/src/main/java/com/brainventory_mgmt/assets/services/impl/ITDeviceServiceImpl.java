@@ -31,9 +31,9 @@ public class ITDeviceServiceImpl implements IITDeviceService {
         try {
             ITDeviceEntity itDevice = modelMapper.map(itDeviceRequestDTO, ITDeviceEntity.class);
 
-            if (itDeviceRequestDTO.getRoom().getIdRoom() != null) {
-                DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getIdRoom());
-                itDevice.setIdRoom(deviceRoomDTO.getIdRoom());
+            if (itDeviceRequestDTO.getRoom().getId() != null) {
+                DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getId());
+                itDevice.setIdRoom(deviceRoomDTO.getId());
             }
 
             if (itDevice.getHardwareDetails() != null) {
@@ -69,8 +69,8 @@ public class ITDeviceServiceImpl implements IITDeviceService {
 
         ITDeviceDTO itDeviceDTO = modelMapper.map(itDevice, ITDeviceDTO.class);
 
-        if (itDeviceDTO.getRoom().getIdRoom() != null) {
-            RoomReferenceDTO roomReferenceDTO = roomServiceClient.findRoomById(itDeviceDTO.getRoom().getIdRoom());
+        if (itDeviceDTO.getRoom().getId() != null) {
+            RoomReferenceDTO roomReferenceDTO = roomServiceClient.findRoomById(itDeviceDTO.getRoom().getId());
             itDeviceDTO.setRoom(roomReferenceDTO);
         }
 
@@ -85,9 +85,9 @@ public class ITDeviceServiceImpl implements IITDeviceService {
         ITDeviceEntity updatedITDevice = modelMapper.map(itDeviceRequestDTO, ITDeviceEntity.class);
         updatedITDevice.setIdITDevice(id);
 
-        if (itDeviceRequestDTO.getRoom().getIdRoom() != null) {
-            DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getIdRoom());
-            updatedITDevice.setIdRoom(deviceRoomDTO.getIdRoom());
+        if (itDeviceRequestDTO.getRoom().getId() != null) {
+            DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getId());
+            updatedITDevice.setIdRoom(deviceRoomDTO.getId());
         }
 
         if (updatedITDevice.getHardwareDetails() != null) {

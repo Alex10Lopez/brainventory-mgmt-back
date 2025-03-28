@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoomDTO {
-    Long idRoom;
+    Long id;
     String image;
 
     RoomTypeDTO roomType;
@@ -27,12 +27,12 @@ public class RoomDTO {
 
     Integer capacityMax;
 
+    BuildingReferenceDTO building;
+
     @NotBlank
     String  floorLabel;
 
     String description;
 
     List<DepartmentReferenceDTO> departments;
-
-    BuildingReferenceDTO building;
 }

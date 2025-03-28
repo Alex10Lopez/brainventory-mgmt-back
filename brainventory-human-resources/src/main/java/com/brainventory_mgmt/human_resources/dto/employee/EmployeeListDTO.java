@@ -50,6 +50,8 @@ public class EmployeeListDTO {
 
     @NotBlank
     BigDecimal salary;
+
     List<EmployeeContactDTO> contacts;
+
     LocalDateTime loginDate;
 }

@@ -2,9 +2,12 @@ package com.brainventory_mgmt.infrastructure.services.impl;
 
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingDTO;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingListDTO;
+import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
 import com.brainventory_mgmt.infrastructure.models.building.BuildingEntity;
 import com.brainventory_mgmt.infrastructure.repository.IBuildingRepository;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IBuildingService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +15,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BuildingServiceImpl implements IBuildingService {
     private final IBuildingRepository buildingRepository;
     private final ModelMapper modelMapper;
 
-    public BuildingServiceImpl(IBuildingRepository buildingRepository, ModelMapper modelMapper){
-        this.buildingRepository = buildingRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public BuildingDTO saveBuilding(BuildingDTO buildingDTO) {
@@ -75,5 +75,14 @@ public class BuildingServiceImpl implements IBuildingService {
             throw new RuntimeException("Building not found");
 
         buildingRepository.deleteById(id);
+    }
+
+    @Override
+    public
+    List<BuildingReferenceDTO> findAllReferences(){
+        return buildingRepository.findAll()
+                .stream()
+                .map(building -> modelMapper.map(building, BuildingReferenceDTO.class))
+                .collect(Collectors.toList());
     }
 }
