@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ITDeviceRequestDTO {
-    Long idITDevice;
+    Long id;
 
     String image;
 

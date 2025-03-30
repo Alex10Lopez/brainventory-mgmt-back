@@ -26,7 +26,7 @@ public class ITDeviceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long idITDevice;
+    Long id;
 
     String image;
 

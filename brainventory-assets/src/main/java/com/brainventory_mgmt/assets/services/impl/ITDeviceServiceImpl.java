@@ -83,7 +83,7 @@ public class ITDeviceServiceImpl implements IITDeviceService {
                 .orElseThrow(() -> new RuntimeException("IT Device not found!"));
 
         ITDeviceEntity updatedITDevice = modelMapper.map(itDeviceRequestDTO, ITDeviceEntity.class);
-        updatedITDevice.setIdITDevice(id);
+        updatedITDevice.setId(id);
 
         if (itDeviceRequestDTO.getRoom().getId() != null) {
             DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getId());
