@@ -2,7 +2,6 @@ package com.brainventory_mgmt.infrastructure.dto.room;
 
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
 import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDTO;
-import com.brainventory_mgmt.infrastructure.dto.room.roomType.RoomTypeDTO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,11 +19,11 @@ public class RoomDTO {
     Long id;
     String image;
 
-    RoomTypeDTO roomType;
-
     @NotBlank
-    String name;
+    String roomType;
 
+    String name;
+    String number;
     Integer capacityMax;
 
     BuildingReferenceDTO building;

@@ -50,7 +50,7 @@ public class BuildingRestController {
     }
 
     @GetMapping("/references")
-    public ResponseEntity<List<BuildingReferenceDTO>> findAllReferences(){
-        return new ResponseEntity<>(buildingService.findAllReferences(), HttpStatus.OK);
+    public ResponseEntity<List<BuildingReferenceDTO>> findAllBuildings(){
+        return new ResponseEntity<>(buildingService.findAllBuildings(), HttpStatus.OK);
     }
 }

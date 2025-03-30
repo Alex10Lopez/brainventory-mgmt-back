@@ -2,7 +2,6 @@ package com.brainventory_mgmt.infrastructure.models.room;
 
 import com.brainventory_mgmt.infrastructure.models.building.BuildingEntity;
 import com.brainventory_mgmt.infrastructure.models.department.DepartmentEntity;
-import com.brainventory_mgmt.infrastructure.models.room.roomType.RoomTypeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,8 +30,14 @@ public class RoomEntity {
 
     String image;
 
+    @Column(name = "room_type")
+    String roomType;
+
     @Column(nullable = false)
     String name;
+
+    @Column
+    String number;
 
     @Column(name = "capacity_max")
     Integer capacityMax;
@@ -49,10 +54,6 @@ public class RoomEntity {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     LocalDateTime updatedAt;
-
-    @ManyToOne
-    @JoinColumn(name = "id_room_type", nullable = false)
-    RoomTypeEntity roomType;
 
     @ManyToOne
     @JoinColumn(name = "id_building", nullable = false)

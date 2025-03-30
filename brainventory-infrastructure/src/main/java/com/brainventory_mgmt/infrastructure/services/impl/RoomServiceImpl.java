@@ -5,7 +5,6 @@ import com.brainventory_mgmt.infrastructure.dto.room.RoomRequestDTO;
 import com.brainventory_mgmt.infrastructure.models.room.RoomEntity;
 import com.brainventory_mgmt.infrastructure.repository.IRoomRepository;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IRoomService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

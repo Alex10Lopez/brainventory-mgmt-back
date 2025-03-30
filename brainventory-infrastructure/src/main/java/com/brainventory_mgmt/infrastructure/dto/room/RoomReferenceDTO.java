@@ -1,6 +1,5 @@
 package com.brainventory_mgmt.infrastructure.dto.room;
 
-import com.brainventory_mgmt.infrastructure.dto.room.roomType.RoomTypeDTO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,8 +14,11 @@ import lombok.experimental.FieldDefaults;
 public class RoomReferenceDTO {
     Long id;
 
-    RoomTypeDTO roomType;
+    @NotBlank
+    String roomType;
 
     @NotBlank
     String name;
+
+    String number;
 }

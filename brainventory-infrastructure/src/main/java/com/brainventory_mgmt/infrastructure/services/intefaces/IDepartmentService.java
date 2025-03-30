@@ -6,5 +6,5 @@ import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDT
 import java.util.List;
 
 public interface IDepartmentService {
-    List<DepartmentReferenceDTO> findAllReferences();
+    List<DepartmentReferenceDTO> findAllDepartments();
 }

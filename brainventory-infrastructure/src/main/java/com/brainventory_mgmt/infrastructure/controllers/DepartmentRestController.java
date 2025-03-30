@@ -19,7 +19,7 @@ public class DepartmentRestController {
     private final IDepartmentService departmentService;
 
     @GetMapping("/references")
-    public ResponseEntity<List<DepartmentReferenceDTO>> findAllReferences(){
-        return new ResponseEntity<>(departmentService.findAllReferences(), HttpStatus.OK);
+    public ResponseEntity<List<DepartmentReferenceDTO>> findAllDepartments(){
+        return new ResponseEntity<>(departmentService.findAllDepartments(), HttpStatus.OK);
     }
 }

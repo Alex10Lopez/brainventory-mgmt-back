@@ -19,7 +19,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<DepartmentReferenceDTO> findAllReferences() {
+    public List<DepartmentReferenceDTO> findAllDepartments() {
         return departmentRepository.findAll()
                 .stream()
                 .map(department -> modelMapper.map(department, DepartmentReferenceDTO.class))

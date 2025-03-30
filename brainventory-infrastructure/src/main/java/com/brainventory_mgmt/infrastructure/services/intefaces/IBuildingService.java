@@ -15,5 +15,5 @@ public interface IBuildingService {
      BuildingDTO updateBuilding(BuildingDTO buildingDTO, Long id);
      void deleteBuilding(Long id);
 
-     List<BuildingReferenceDTO> findAllReferences();
+     List<BuildingReferenceDTO> findAllBuildings();
 }

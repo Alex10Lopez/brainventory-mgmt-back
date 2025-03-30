@@ -79,7 +79,7 @@ public class BuildingServiceImpl implements IBuildingService {
 
     @Override
     public
-    List<BuildingReferenceDTO> findAllReferences(){
+    List<BuildingReferenceDTO> findAllBuildings(){
         return buildingRepository.findAll()
                 .stream()
                 .map(building -> modelMapper.map(building, BuildingReferenceDTO.class))
