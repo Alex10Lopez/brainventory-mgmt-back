@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class IODeviceDTO {
-    Long idIODevice;
+    Long id;
     String image;
 
     HardwareDetailsDTO hardwareDetails;

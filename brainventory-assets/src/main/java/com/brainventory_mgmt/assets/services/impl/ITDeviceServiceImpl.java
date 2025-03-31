@@ -3,6 +3,7 @@ package com.brainventory_mgmt.assets.services.impl;
 import com.brainventory_mgmt.assets.client.RoomServiceClient;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceListDTO;
+import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceReferenceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceRequestDTO;
 import com.brainventory_mgmt.assets.dto.room.DeviceRoomDTO;
 import com.brainventory_mgmt.assets.dto.room.RoomReferenceDTO;
@@ -113,5 +114,13 @@ public class ITDeviceServiceImpl implements IITDeviceService {
 
         if (hardwareDetails != null)
             hardwareDetailsRepository.delete(hardwareDetails);
+    }
+
+    @Override
+    public List<ITDeviceReferenceDTO> findAllITDevices(){
+        return itDeviceRepository.findAll()
+                .stream()
+                .map(itDevice -> modelMapper.map(itDevice, ITDeviceReferenceDTO.class))
+                .collect(Collectors.toList());
     }
 }

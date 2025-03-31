@@ -18,7 +18,7 @@ public class JobRoleServiceImpl implements IJobRoleService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<JobRoleReferenceDTO> findAllReferences() {
+    public List<JobRoleReferenceDTO> findAllJobRoles() {
         return jobRoleRepository.findAll()
                 .stream()
                 .map(jobRole -> modelMapper.map(jobRole, JobRoleReferenceDTO.class))

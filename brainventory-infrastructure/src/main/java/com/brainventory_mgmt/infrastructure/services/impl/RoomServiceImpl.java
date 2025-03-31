@@ -1,6 +1,7 @@
 package com.brainventory_mgmt.infrastructure.services.impl;
 
 import com.brainventory_mgmt.infrastructure.dto.room.RoomDTO;
+import com.brainventory_mgmt.infrastructure.dto.room.RoomReferenceDTO;
 import com.brainventory_mgmt.infrastructure.dto.room.RoomRequestDTO;
 import com.brainventory_mgmt.infrastructure.models.room.RoomEntity;
 import com.brainventory_mgmt.infrastructure.repository.IRoomRepository;
@@ -66,5 +67,13 @@ public class RoomServiceImpl implements IRoomService {
             throw new RuntimeException("Building not found");
 
         roomRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RoomReferenceDTO> findAllRooms(){
+        return roomRepository.findAll()
+                .stream()
+                .map(room -> modelMapper.map(room, RoomReferenceDTO.class))
+                .collect(Collectors.toList());
     }
 }

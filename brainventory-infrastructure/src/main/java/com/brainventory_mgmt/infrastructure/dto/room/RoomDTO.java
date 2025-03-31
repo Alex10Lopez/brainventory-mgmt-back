@@ -2,6 +2,7 @@ package com.brainventory_mgmt.infrastructure.dto.room;
 
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
 import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDTO;
+import com.brainventory_mgmt.infrastructure.enums.RoomTypes;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class RoomDTO {
     String image;
 
     @NotBlank
-    String roomType;
+    RoomTypes roomType;
 
     String name;
     String number;

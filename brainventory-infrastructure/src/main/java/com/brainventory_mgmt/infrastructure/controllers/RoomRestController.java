@@ -1,6 +1,7 @@
 package com.brainventory_mgmt.infrastructure.controllers;
 
 import com.brainventory_mgmt.infrastructure.dto.room.RoomDTO;
+import com.brainventory_mgmt.infrastructure.dto.room.RoomReferenceDTO;
 import com.brainventory_mgmt.infrastructure.dto.room.RoomRequestDTO;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IRoomService;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,10 @@ public class RoomRestController {
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/references")
+    public ResponseEntity<List<RoomReferenceDTO>> findAllRooms(){
+        return new ResponseEntity<>(roomService.findAllRooms(), HttpStatus.OK);
     }
 }

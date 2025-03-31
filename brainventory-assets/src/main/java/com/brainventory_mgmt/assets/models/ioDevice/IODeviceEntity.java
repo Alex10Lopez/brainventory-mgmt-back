@@ -25,8 +25,7 @@ import java.time.LocalDateTime;
 public class IODeviceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    Long idIODevice;
+    Long id;
 
     String image;
 

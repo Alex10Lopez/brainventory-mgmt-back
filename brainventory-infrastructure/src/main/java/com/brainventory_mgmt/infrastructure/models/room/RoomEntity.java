@@ -1,5 +1,6 @@
 package com.brainventory_mgmt.infrastructure.models.room;
 
+import com.brainventory_mgmt.infrastructure.enums.RoomTypes;
 import com.brainventory_mgmt.infrastructure.models.building.BuildingEntity;
 import com.brainventory_mgmt.infrastructure.models.department.DepartmentEntity;
 import jakarta.persistence.*;
@@ -25,13 +26,13 @@ import java.util.List;
 public class RoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     Long id;
 
     String image;
 
-    @Column(name = "room_type")
-    String roomType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "room_type", nullable = false)
+    RoomTypes roomType;
 
     @Column(nullable = false)
     String name;

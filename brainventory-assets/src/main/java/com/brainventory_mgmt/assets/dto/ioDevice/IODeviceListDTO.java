@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class IODeviceListDTO {
-    Long idIODevice;
+    Long id;
     String image;
 
     HardwareDetailsReferenceDTO hardwareDetails;

@@ -66,7 +66,7 @@ public class IODeviceServiceImpl implements IIODeviceService {
                 .orElseThrow(() -> new RuntimeException("IO Device not found!"));
 
         IODeviceEntity updatedIODevice = modelMapper.map(ioDeviceRequestDTO, IODeviceEntity.class);
-        updatedIODevice.setIdIODevice(id);
+        updatedIODevice.setId(id);
 
         if (updatedIODevice.getHardwareDetails() != null) {
             HardwareDetailsEntity savedHardwareDetails = modelMapper.map(ioDeviceRequestDTO.getHardwareDetails(), HardwareDetailsEntity.class);

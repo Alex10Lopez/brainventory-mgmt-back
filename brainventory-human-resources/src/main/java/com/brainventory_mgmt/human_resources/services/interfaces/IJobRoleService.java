@@ -5,5 +5,5 @@ import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleReferenceDTO;
 import java.util.List;
 
 public interface IJobRoleService {
-    List<JobRoleReferenceDTO> findAllReferences();
+    List<JobRoleReferenceDTO> findAllJobRoles();
 }

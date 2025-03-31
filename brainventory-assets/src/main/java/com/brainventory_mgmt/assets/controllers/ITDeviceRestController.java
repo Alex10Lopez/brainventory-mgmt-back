@@ -2,6 +2,7 @@ package com.brainventory_mgmt.assets.controllers;
 
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceListDTO;
+import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceReferenceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceRequestDTO;
 import com.brainventory_mgmt.assets.services.impl.ITDeviceServiceImpl;
 import com.brainventory_mgmt.assets.services.interfaces.IITDeviceService;
@@ -48,5 +49,10 @@ public class ITDeviceRestController {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/references")
+    public ResponseEntity<List<ITDeviceReferenceDTO>> findAllITDevice(){
+        return new ResponseEntity<>(itDeviceService.findAllITDevices(), HttpStatus.OK);
     }
 }

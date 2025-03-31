@@ -2,6 +2,7 @@ package com.brainventory_mgmt.assets.services.interfaces;
 
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceListDTO;
+import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceReferenceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceRequestDTO;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface IITDeviceService {
     ITDeviceDTO findById(Long id);
     ITDeviceRequestDTO updateITDevice(ITDeviceRequestDTO itDeviceRequestDTO, Long id);
     void deleteITDevice(Long id);
+
+    List<ITDeviceReferenceDTO> findAllITDevices();
 }

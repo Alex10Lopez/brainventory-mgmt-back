@@ -19,7 +19,7 @@ public class JobRoleRestController {
     private final IJobRoleService jobRoleService;
 
     @GetMapping("/references")
-    public ResponseEntity<List<JobRoleReferenceDTO>> findAllReferences(){
-        return new ResponseEntity<>(jobRoleService.findAllReferences(), HttpStatus.OK);
+    public ResponseEntity<List<JobRoleReferenceDTO>> findAllJobRoles(){
+        return new ResponseEntity<>(jobRoleService.findAllJobRoles(), HttpStatus.OK);
     }
 }

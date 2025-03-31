@@ -1,5 +1,6 @@
 package com.brainventory_mgmt.assets.dto.room;
 
+import com.brainventory_mgmt.assets.enums.RoomTypes;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class RoomReferenceDTO {
     Long id;
 
     @NotBlank
-    String roomType;
+    RoomTypes roomType;
 
     String name;
     String number;
