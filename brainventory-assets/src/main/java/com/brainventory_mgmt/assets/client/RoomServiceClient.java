@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "brainventory-infrastructure", url = "http://localhost:9000/api/room-device")
+@FeignClient(name = "brainventory-infrastructure", url = "http://localhost:8080/api/room-device")
 public interface RoomServiceClient {
     @GetMapping("/link/{id}")
     DeviceRoomDTO linkRoomById(@PathVariable Long id);

@@ -17,7 +17,6 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
         <module name="brainventory-eureka" />
-        <module name="brainventory-gateway" />
         <module name="brainventory-config-server" />
       </profile>
       <profile name="Annotation profile for brainventory-auth" enabled="true">
@@ -55,6 +54,15 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
         <module name="brainventory-assets" />
+      </profile>
+      <profile name="Annotation profile for brainventory-gateway" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="brainventory-gateway" />
       </profile>
     </annotationProcessing>
   </component>
