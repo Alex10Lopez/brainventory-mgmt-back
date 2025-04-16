@@ -1,9 +1,8 @@
 package com.brainventory_mgmt.human_resources.services.impl;
 
-import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleReferenceDTO;
+import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleDTO;
 import com.brainventory_mgmt.human_resources.repository.IJobRoleRepository;
 import com.brainventory_mgmt.human_resources.services.interfaces.IJobRoleService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,10 +17,10 @@ public class JobRoleServiceImpl implements IJobRoleService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<JobRoleReferenceDTO> findAllJobRoles() {
+    public List<JobRoleDTO> findAllJobRoles() {
         return jobRoleRepository.findAll()
                 .stream()
-                .map(jobRole -> modelMapper.map(jobRole, JobRoleReferenceDTO.class))
+                .map(jobRole -> modelMapper.map(jobRole, JobRoleDTO.class))
                 .collect(Collectors.toList());
     }
 }

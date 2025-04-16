@@ -59,7 +59,6 @@ public class EmployeeEntity {
     @Column(name = "employee_status", nullable = false)
     EmployeeStatus status;
 
-    @Column(nullable = false)
     String password;
 
     @Column(nullable = false)

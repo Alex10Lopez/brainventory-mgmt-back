@@ -1,25 +1,23 @@
 package com.brainventory_mgmt.human_resources.dto.jobRole;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-import java.math.BigDecimal;
+import org.springframework.validation.annotation.Validated;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Validated
 public class JobRoleDTO {
-    Long id;
+        Long id;
 
-    @NotBlank
-    String name;
-
-    BigDecimal salaryRangeMin;
-    BigDecimal salaryRangeMax;
-    String description;
+        @NotBlank
+        @Size(min = 1, max = 50)
+        String name;
 }

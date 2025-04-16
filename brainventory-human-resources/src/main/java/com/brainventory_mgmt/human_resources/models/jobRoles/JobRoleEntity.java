@@ -29,20 +29,4 @@ public class JobRoleEntity {
 
     @Column(nullable = false, unique = true)
     String name;
-
-    @Column(name = "salary_range_min")
-    BigDecimal salaryRangeMin;
-
-    @Column(name = "salary_range_max")
-    BigDecimal salaryRangeMax;
-
-    String description;
-
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    LocalDateTime updatedAt;
 }

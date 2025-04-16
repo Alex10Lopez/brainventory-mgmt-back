@@ -4,6 +4,7 @@ import com.brainventory_mgmt.human_resources.dto.employee.EmployeeDTO;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeListDTO;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeRequestDTO;
 import com.brainventory_mgmt.human_resources.services.interfaces.IEmployeeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class EmployeeRestController {
     private final IEmployeeService employeeService;
 
     @PostMapping
-    public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO){
-        return new ResponseEntity<>(employeeService.saveEmployee(employeeRequestDTO), HttpStatus.CREATED);
+    public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestBody @Valid EmployeeRequestDTO employeeCreateDTO){
+        return new ResponseEntity<>(employeeService.saveEmployee(employeeCreateDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -33,7 +34,7 @@ public class EmployeeRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeRequestDTO> updateEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO, @PathVariable Long id){
+    public ResponseEntity<EmployeeRequestDTO> updateEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO, @PathVariable Long id){
         return new ResponseEntity<>(employeeService.updateEmployee(employeeRequestDTO, id), HttpStatus.OK);
     }
 

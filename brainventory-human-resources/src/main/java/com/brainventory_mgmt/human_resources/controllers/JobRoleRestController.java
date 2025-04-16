@@ -1,8 +1,7 @@
 package com.brainventory_mgmt.human_resources.controllers;
 
-import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleReferenceDTO;
+import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleDTO;
 import com.brainventory_mgmt.human_resources.services.interfaces.IJobRoleService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class JobRoleRestController {
     private final IJobRoleService jobRoleService;
 
     @GetMapping("/references")
-    public ResponseEntity<List<JobRoleReferenceDTO>> findAllJobRoles(){
+    public ResponseEntity<List<JobRoleDTO>> findAllJobRoles(){
         return new ResponseEntity<>(jobRoleService.findAllJobRoles(), HttpStatus.OK);
     }
 }

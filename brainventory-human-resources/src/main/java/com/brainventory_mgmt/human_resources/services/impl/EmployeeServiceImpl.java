@@ -24,11 +24,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public EmployeeRequestDTO saveEmployee(EmployeeRequestDTO employeeRequestDTO) {
+    public EmployeeRequestDTO saveEmployee(EmployeeRequestDTO employeeCreateDTO) {
         try{
-            EmployeeEntity employee = modelMapper.map(employeeRequestDTO, EmployeeEntity.class);
+            EmployeeEntity employee = modelMapper.map(employeeCreateDTO, EmployeeEntity.class);
 
-            employee.setPassword(passwordEncoder.encode(employeeRequestDTO.getPassword()));
+            employee.setPassword(passwordEncoder.encode(employeeCreateDTO.getPassword()));
 
             for (EmployeeContactEntity contact : employee.getContacts())
                 contact.setEmployee(employee);
@@ -79,13 +79,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
         EmployeeEntity updatedEmployee = modelMapper.map(employeeRequestDTO, EmployeeEntity.class);
         updatedEmployee.setId(id);
 
-        updatedEmployee.setPassword(passwordEncoder.encode(employeeRequestDTO.getPassword()));
-
         for (EmployeeAddressEntity address : updatedEmployee.getAddresses())
             address.setEmployee(updatedEmployee);
 
         for (EmployeeContactEntity contact : updatedEmployee.getContacts())
             contact.setEmployee(updatedEmployee);
+
+        if (employeeRequestDTO.getPassword() != null && !employeeRequestDTO.getPassword().isBlank()) {
+            updatedEmployee.setPassword(passwordEncoder.encode(employeeRequestDTO.getPassword()));
+        }
 
         EmployeeEntity savedEmployee = employeeRepository.save(updatedEmployee);
         return modelMapper.map(savedEmployee, EmployeeRequestDTO.class);

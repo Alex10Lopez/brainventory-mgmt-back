@@ -4,12 +4,11 @@ import com.brainventory_mgmt.human_resources.dto.employee.employeeAddress.Employ
 import com.brainventory_mgmt.human_resources.dto.employee.employeeContact.EmployeeContactDTO;
 import com.brainventory_mgmt.human_resources.dto.jobRole.EmployeeJobRoleDTO;
 import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleDTO;
-import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleReferenceDTO;
 import com.brainventory_mgmt.human_resources.enums.EmployeePermissions;
 import com.brainventory_mgmt.human_resources.enums.EmployeeSex;
 import com.brainventory_mgmt.human_resources.enums.EmployeeStatus;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,18 +28,22 @@ public class EmployeeRequestDTO {
     String image;
 
     @NotBlank
+    @Size(min = 2, max = 70)
     String name;
 
     @NotBlank
+    @Size(min = 2, max = 70)
     String lastname;
 
     @NotNull
+    @Past
     LocalDate dateOfBirth;
 
     @NotNull
     EmployeeSex sex;
 
     @NotBlank
+    @Size(min = 3, max = 50)
     String nationality;
 
     @NotNull
@@ -49,12 +52,21 @@ public class EmployeeRequestDTO {
     @NotNull
     EmployeeStatus status;
 
-    @NotBlank
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
+    @DecimalMin(value = "0.00")
+    @DecimalMax(value = "99999999.99")
     BigDecimal salary;
 
+    @Valid
     List<EmployeeJobRoleDTO> jobRoles;
+
+    @Valid
     List<EmployeeContactDTO> contacts;
+
+    @Valid
     List<EmployeeAddressDTO> addresses;
 
+    @Size(min = 8, max = 255)
     String password;
 }

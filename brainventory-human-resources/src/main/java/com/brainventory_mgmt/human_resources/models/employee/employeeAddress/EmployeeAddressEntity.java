@@ -28,7 +28,7 @@ public class EmployeeAddressEntity {
     @Column(nullable = false)
     String street;
 
-    @Column(name = "street_number", nullable = false)
+    @Column(name = "street_number")
     String streetNumber;
 
     @Column(name = "postal_code", nullable = false)
