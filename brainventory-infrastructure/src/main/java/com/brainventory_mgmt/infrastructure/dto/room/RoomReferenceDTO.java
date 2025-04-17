@@ -14,12 +14,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoomReferenceDTO {
     Long id;
-
-    @NotBlank
     RoomTypes roomType;
-
-    @NotBlank
     String name;
-
     String number;
 }

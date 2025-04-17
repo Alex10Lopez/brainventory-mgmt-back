@@ -24,41 +24,17 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmployeeListDTO {
     Long id;
-
-    @NotBlank
-    @Size(min = 2, max = 70)
     String name;
-
-    @NotBlank
-    @Size(min = 2, max = 70)
     String lastname;
-
-    @NotNull
-    @Past
     LocalDate dateOfBirth;
-
-    @NotNull
     EmployeeSex sex;
-
-    @NotBlank
-    @Size(min = 3, max = 50)
     String nationality;
-
-    @NotNull
     EmployeePermissions permissions;
 
     List<JobRoleDTO> jobRoles;
 
-    @NotNull
     EmployeeStatus status;
 
-    @NotNull
-    @Digits(integer = 8, fraction = 2)
-    @DecimalMin(value = "0.00")
-    @DecimalMax(value = "99999999.99")
-    BigDecimal salary;
-
-    @Valid
     List<EmployeeContactDTO> contacts;
 
     LocalDateTime loginDate;

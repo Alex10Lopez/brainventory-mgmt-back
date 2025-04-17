@@ -19,19 +19,12 @@ import java.util.List;
 public class RoomDTO {
     Long id;
     String image;
-
-    @NotBlank
     RoomTypes roomType;
-
     String name;
     String number;
     Integer capacityMax;
-
     BuildingReferenceDTO building;
-
-    @NotBlank
     String  floorLabel;
-
     String description;
 
     List<DepartmentDTO> departments;

@@ -2,9 +2,7 @@ package com.brainventory_mgmt.infrastructure.dto.building;
 
 import com.brainventory_mgmt.infrastructure.dto.building.buildingAddress.BuildingAddressDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +21,8 @@ public class BuildingDTO {
     @Size(min = 1, max = 50)
     String name;
 
-    @NotBlank
+    @NotNull
+    @Positive
     @Min(1)
     Integer numberOfFloors;
 

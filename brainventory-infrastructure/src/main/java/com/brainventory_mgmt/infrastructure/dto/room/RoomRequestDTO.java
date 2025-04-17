@@ -30,7 +30,7 @@ public class RoomRequestDTO {
     @Size(max = 10)
     String number;
 
-    @PositiveOrZero
+    @Positive
     @Max(50)
     Integer capacityMax;
 
