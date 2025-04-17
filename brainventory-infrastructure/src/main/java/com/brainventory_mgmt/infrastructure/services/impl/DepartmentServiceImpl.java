@@ -1,10 +1,8 @@
 package com.brainventory_mgmt.infrastructure.services.impl;
 
-import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
-import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDTO;
+import com.brainventory_mgmt.infrastructure.dto.department.DepartmentDTO;
 import com.brainventory_mgmt.infrastructure.repository.IDepartmentRepository;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IDepartmentService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -19,10 +17,10 @@ public class DepartmentServiceImpl implements IDepartmentService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<DepartmentReferenceDTO> findAllDepartments() {
+    public List<DepartmentDTO> findAllDepartments() {
         return departmentRepository.findAll()
                 .stream()
-                .map(department -> modelMapper.map(department, DepartmentReferenceDTO.class))
+                .map(department -> modelMapper.map(department, DepartmentDTO.class))
                 .collect(Collectors.toList());
     }
 }

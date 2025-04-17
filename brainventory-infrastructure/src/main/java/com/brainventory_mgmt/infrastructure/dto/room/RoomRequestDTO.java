@@ -1,10 +1,10 @@
 package com.brainventory_mgmt.infrastructure.dto.room;
 
 import com.brainventory_mgmt.infrastructure.dto.building.RoomBuildingDTO;
-import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDTO;
 import com.brainventory_mgmt.infrastructure.dto.department.RoomDepartmentDTO;
 import com.brainventory_mgmt.infrastructure.enums.RoomTypes;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +21,17 @@ public class RoomRequestDTO {
     Long id;
     String image;
 
-    @NotBlank
+    @NotNull
     RoomTypes roomType;
 
+    @Size(max = 50)
     String name;
+
+    @Size(max = 10)
     String number;
+
+    @PositiveOrZero
+    @Max(50)
     Integer capacityMax;
 
     RoomBuildingDTO building;
@@ -33,7 +39,9 @@ public class RoomRequestDTO {
     @NotBlank
     String floorLabel;
 
+    @Size(max = 500)
     String description;
 
+    @Valid
     List<RoomDepartmentDTO> departments;
 }

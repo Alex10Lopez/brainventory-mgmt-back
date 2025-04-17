@@ -4,6 +4,7 @@ import com.brainventory_mgmt.infrastructure.dto.room.RoomDTO;
 import com.brainventory_mgmt.infrastructure.dto.room.RoomReferenceDTO;
 import com.brainventory_mgmt.infrastructure.dto.room.RoomRequestDTO;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IRoomService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class RoomRestController {
     private final IRoomService roomService;
 
     @PostMapping
-    public ResponseEntity<RoomRequestDTO> saveRoom(@RequestBody RoomRequestDTO roomRequestDTO){
+    public ResponseEntity<RoomRequestDTO> saveRoom(@RequestBody @Valid RoomRequestDTO roomRequestDTO){
         return new ResponseEntity<>(roomService.saveRoom(roomRequestDTO), HttpStatus.CREATED);
     }
 
@@ -33,7 +34,7 @@ public class RoomRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoomRequestDTO> updateRoom(@RequestBody RoomRequestDTO roomRequestDTO, @PathVariable Long id){
+    public ResponseEntity<RoomRequestDTO> updateRoom(@RequestBody @Valid RoomRequestDTO roomRequestDTO, @PathVariable Long id){
         return new ResponseEntity<>(roomService.updateRoom(roomRequestDTO, id), HttpStatus.OK);
     }
 

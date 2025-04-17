@@ -26,14 +26,4 @@ public class DepartmentEntity {
 
     @Column(nullable = false, unique = true)
     String name;
-
-    String description;
-
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = false)
-    LocalDateTime updatedAt;
 }

@@ -1,8 +1,7 @@
 package com.brainventory_mgmt.infrastructure.controllers;
 
-import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDTO;
+import com.brainventory_mgmt.infrastructure.dto.department.DepartmentDTO;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IDepartmentService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class DepartmentRestController {
     private final IDepartmentService departmentService;
 
     @GetMapping("/references")
-    public ResponseEntity<List<DepartmentReferenceDTO>> findAllDepartments(){
+    public ResponseEntity<List<DepartmentDTO>> findAllDepartments(){
         return new ResponseEntity<>(departmentService.findAllDepartments(), HttpStatus.OK);
     }
 }

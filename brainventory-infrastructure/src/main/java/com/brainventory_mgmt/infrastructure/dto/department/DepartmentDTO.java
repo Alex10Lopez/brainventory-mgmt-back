@@ -16,6 +16,4 @@ public class DepartmentDTO {
 
     @NotBlank
     String name;
-
-    String description;
 }

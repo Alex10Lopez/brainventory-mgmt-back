@@ -1,7 +1,7 @@
 package com.brainventory_mgmt.infrastructure.dto.room;
 
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
-import com.brainventory_mgmt.infrastructure.dto.department.DepartmentReferenceDTO;
+import com.brainventory_mgmt.infrastructure.dto.department.DepartmentDTO;
 import com.brainventory_mgmt.infrastructure.enums.RoomTypes;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
@@ -34,5 +34,5 @@ public class RoomDTO {
 
     String description;
 
-    List<DepartmentReferenceDTO> departments;
+    List<DepartmentDTO> departments;
 }

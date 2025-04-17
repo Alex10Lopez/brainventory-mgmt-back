@@ -9,8 +9,6 @@ public enum RoomTypes {
     CUBICLE("cubicle"),
     MEETING_ROOM("meeting_room"),
     CONFERENCE_ROOM("conference_room"),
-    HR_OFFICE("hr_office"),
-    FINANCE_OFFICE("finance_office"),
     CALL_CENTER("call_center"),
     RECEPTION("reception"),
     WAITING_AREA("waiting_area"),

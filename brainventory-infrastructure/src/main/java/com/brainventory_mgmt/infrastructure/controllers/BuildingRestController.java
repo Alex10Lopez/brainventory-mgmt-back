@@ -4,6 +4,7 @@ import com.brainventory_mgmt.infrastructure.dto.building.BuildingDTO;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingListDTO;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IBuildingService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class BuildingRestController {
     private final IBuildingService buildingService;
 
     @PostMapping
-    public ResponseEntity<BuildingDTO> saveBuilding(@RequestBody BuildingDTO buildingDTO){
+    public ResponseEntity<BuildingDTO> saveBuilding(@RequestBody @Valid BuildingDTO buildingDTO){
         return new ResponseEntity<>(buildingService.saveBuilding(buildingDTO), HttpStatus.CREATED);
     }
 
@@ -34,7 +35,7 @@ public class BuildingRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BuildingDTO> updateBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable Long id){
+    public ResponseEntity<BuildingDTO> updateBuilding(@RequestBody @Valid BuildingDTO buildingDTO, @PathVariable Long id){
         return new ResponseEntity<>(buildingService.updateBuilding(buildingDTO, id), HttpStatus.OK);
     }
 
