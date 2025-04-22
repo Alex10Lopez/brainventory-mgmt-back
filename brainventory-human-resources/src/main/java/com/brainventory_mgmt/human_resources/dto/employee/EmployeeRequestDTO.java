@@ -1,9 +1,8 @@
 package com.brainventory_mgmt.human_resources.dto.employee;
 
-import com.brainventory_mgmt.human_resources.dto.employee.employeeAddress.EmployeeAddressDTO;
-import com.brainventory_mgmt.human_resources.dto.employee.employeeContact.EmployeeContactDTO;
-import com.brainventory_mgmt.human_resources.dto.jobRole.EmployeeJobRoleDTO;
-import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.address.AddressDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.contact.ContactDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.jobRole.EmployeeJobRoleDTO;
 import com.brainventory_mgmt.human_resources.enums.EmployeePermissions;
 import com.brainventory_mgmt.human_resources.enums.EmployeeSex;
 import com.brainventory_mgmt.human_resources.enums.EmployeeStatus;
@@ -62,10 +61,10 @@ public class EmployeeRequestDTO {
     List<EmployeeJobRoleDTO> jobRoles;
 
     @Valid
-    List<EmployeeContactDTO> contacts;
+    List<ContactDTO> contacts;
 
     @Valid
-    List<EmployeeAddressDTO> addresses;
+    List<AddressDTO> addresses;
 
     @Size(min = 8, max = 255)
     String password;

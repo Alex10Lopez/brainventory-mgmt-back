@@ -3,8 +3,8 @@ package com.brainventory_mgmt.human_resources.services.impl;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeDTO;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeListDTO;
 import com.brainventory_mgmt.human_resources.dto.employee.EmployeeRequestDTO;
-import com.brainventory_mgmt.human_resources.models.employee.employeeAddress.EmployeeAddressEntity;
-import com.brainventory_mgmt.human_resources.models.employee.employeeContact.EmployeeContactEntity;
+import com.brainventory_mgmt.human_resources.models.employee.address.AddressEntity;
+import com.brainventory_mgmt.human_resources.models.employee.contact.ContactEntity;
 import com.brainventory_mgmt.human_resources.models.employee.EmployeeEntity;
 import com.brainventory_mgmt.human_resources.repository.IEmployeeRepository;
 import com.brainventory_mgmt.human_resources.services.interfaces.IEmployeeService;
@@ -30,10 +30,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
             employee.setPassword(passwordEncoder.encode(employeeCreateDTO.getPassword()));
 
-            for (EmployeeContactEntity contact : employee.getContacts())
+            for (ContactEntity contact : employee.getContacts())
                 contact.setEmployee(employee);
 
-            for (EmployeeAddressEntity address : employee.getAddresses())
+            for (AddressEntity address : employee.getAddresses())
                 address.setEmployee(employee);
 
             EmployeeEntity savedEmployee = employeeRepository.save(employee);
@@ -79,10 +79,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
         EmployeeEntity updatedEmployee = modelMapper.map(employeeRequestDTO, EmployeeEntity.class);
         updatedEmployee.setId(id);
 
-        for (EmployeeAddressEntity address : updatedEmployee.getAddresses())
+        for (AddressEntity address : updatedEmployee.getAddresses())
             address.setEmployee(updatedEmployee);
 
-        for (EmployeeContactEntity contact : updatedEmployee.getContacts())
+        for (ContactEntity contact : updatedEmployee.getContacts())
             contact.setEmployee(updatedEmployee);
 
         if (employeeRequestDTO.getPassword() != null && !employeeRequestDTO.getPassword().isBlank()) {

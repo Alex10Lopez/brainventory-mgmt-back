@@ -1,4 +1,4 @@
-package com.brainventory_mgmt.infrastructure.exceptions;
+package com.brainventory_mgmt.assets.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class InfrastructureExceptionHandler {
+public class AssetsExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

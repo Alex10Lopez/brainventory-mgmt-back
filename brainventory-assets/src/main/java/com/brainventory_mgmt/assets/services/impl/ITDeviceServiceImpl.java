@@ -32,7 +32,7 @@ public class ITDeviceServiceImpl implements IITDeviceService {
         try {
             ITDeviceEntity itDevice = modelMapper.map(itDeviceRequestDTO, ITDeviceEntity.class);
 
-            if (itDeviceRequestDTO.getRoom().getId() != null) {
+            if (itDeviceRequestDTO.getRoom() != null && itDeviceRequestDTO.getRoom().getId() != null) {
                 DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getId());
                 itDevice.setIdRoom(deviceRoomDTO.getId());
             }
@@ -70,7 +70,7 @@ public class ITDeviceServiceImpl implements IITDeviceService {
 
         ITDeviceDTO itDeviceDTO = modelMapper.map(itDevice, ITDeviceDTO.class);
 
-        if (itDeviceDTO.getRoom().getId() != null) {
+        if (itDeviceDTO.getRoom() != null && itDeviceDTO.getRoom().getId() != null) {
             RoomReferenceDTO roomReferenceDTO = roomServiceClient.findRoomById(itDeviceDTO.getRoom().getId());
             itDeviceDTO.setRoom(roomReferenceDTO);
         }
@@ -86,7 +86,7 @@ public class ITDeviceServiceImpl implements IITDeviceService {
         ITDeviceEntity updatedITDevice = modelMapper.map(itDeviceRequestDTO, ITDeviceEntity.class);
         updatedITDevice.setId(id);
 
-        if (itDeviceRequestDTO.getRoom().getId() != null) {
+        if (itDeviceRequestDTO.getRoom() != null && itDeviceRequestDTO.getRoom().getId() != null) {
             DeviceRoomDTO deviceRoomDTO = roomServiceClient.linkRoomById(itDeviceRequestDTO.getRoom().getId());
             updatedITDevice.setIdRoom(deviceRoomDTO.getId());
         }

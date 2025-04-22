@@ -1,9 +1,9 @@
 package com.brainventory_mgmt.assets.services.impl;
 
-import com.brainventory_mgmt.assets.dto.hardware.hardwareBrand.HardwareBrandDTO;
-import com.brainventory_mgmt.assets.dto.hardware.hardwareLine.HardwareLineDTO;
-import com.brainventory_mgmt.assets.dto.hardware.hardwareName.HardwareNameDTO;
-import com.brainventory_mgmt.assets.dto.hardware.hardwareSerie.HardwareSerieDTO;
+import com.brainventory_mgmt.assets.dto.hardware.brand.BrandDTO;
+import com.brainventory_mgmt.assets.dto.hardware.line.LineDTO;
+import com.brainventory_mgmt.assets.dto.hardware.name.NameDTO;
+import com.brainventory_mgmt.assets.dto.hardware.serie.SerieDTO;
 import com.brainventory_mgmt.assets.repository.IHardwareBrandRepository;
 import com.brainventory_mgmt.assets.repository.IHardwareLineRepository;
 import com.brainventory_mgmt.assets.repository.IHardwareNameRepository;
@@ -26,50 +26,50 @@ public class HardwareServiceImpl implements IHardwareService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<HardwareNameDTO> findAllITDeviceNames() {
+    public List<NameDTO> findAllITDeviceNames() {
         return hardwareNameRepository.findAllITDeviceNames()
                 .stream()
-                .map(itDeviceName -> modelMapper.map(itDeviceName, HardwareNameDTO.class))
+                .map(itDeviceName -> modelMapper.map(itDeviceName, NameDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<HardwareNameDTO> findAllIODeviceNames() {
+    public List<NameDTO> findAllIODeviceNames() {
         return hardwareNameRepository.findAllIODeviceNames()
                 .stream()
-                .map(ioDeviceName -> modelMapper.map(ioDeviceName, HardwareNameDTO.class))
+                .map(ioDeviceName -> modelMapper.map(ioDeviceName, NameDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<HardwareBrandDTO> findAllHardwareBrands() {
+    public List<BrandDTO> findAllHardwareBrands() {
         return hardwareBrandRepository.findAll()
                 .stream()
-                .map(brandName -> modelMapper.map(brandName, HardwareBrandDTO.class))
+                .map(brandName -> modelMapper.map(brandName, BrandDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<HardwareLineDTO> findAllITDeviceLines() {
+    public List<LineDTO> findAllITDeviceLines() {
         return hardwareLineRepository.findAllITDeviceLines()
                 .stream()
-                .map(itDeviceLine -> modelMapper.map(itDeviceLine, HardwareLineDTO.class))
+                .map(itDeviceLine -> modelMapper.map(itDeviceLine, LineDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<HardwareLineDTO> findAllIODeviceLines() {
+    public List<LineDTO> findAllIODeviceLines() {
         return hardwareLineRepository.findAllIODeviceLines()
                 .stream()
-                .map(ioDeviceLine -> modelMapper.map(ioDeviceLine, HardwareLineDTO.class))
+                .map(ioDeviceLine -> modelMapper.map(ioDeviceLine, LineDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<HardwareSerieDTO> findAllHardwareSeries() {
+    public List<SerieDTO> findAllHardwareSeries() {
         return hardwareSeriesRepository.findAll()
                 .stream()
-                .map(serieName -> modelMapper.map(serieName, HardwareSerieDTO.class))
+                .map(serieName -> modelMapper.map(serieName, SerieDTO.class))
                 .collect(Collectors.toList());
     }
 }

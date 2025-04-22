@@ -3,7 +3,9 @@ package com.brainventory_mgmt.auth.models;
 import com.brainventory_mgmt.auth.enums.EmployeePermissions;
 import com.brainventory_mgmt.auth.enums.EmployeeSex;
 import com.brainventory_mgmt.auth.enums.EmployeeStatus;
+import com.brainventory_mgmt.auth.models.address.AddressEntity;
 import com.brainventory_mgmt.auth.models.contact.ContactEntity;
+import com.brainventory_mgmt.auth.models.jobRoles.JobRoleEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -78,8 +80,15 @@ public class EmployeeAuthEntity implements UserDetails {
     @Column(name = "login_date")
     LocalDateTime loginDate;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "employee_roles", joinColumns = @JoinColumn(name = "id_employee"), inverseJoinColumns = @JoinColumn(name = "id_job_role"))
+    List<JobRoleEntity> jobRoles;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     List<ContactEntity> contacts;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    List<AddressEntity> addresses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -95,7 +104,10 @@ public class EmployeeAuthEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        if (contacts != null && !contacts.isEmpty())
+            return contacts.get(0).getEmail();
+
+        return null;
     }
 
     @Override

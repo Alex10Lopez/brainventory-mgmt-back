@@ -1,6 +1,6 @@
 package com.brainventory_mgmt.human_resources.controllers;
 
-import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.jobRole.JobRoleDTO;
 import com.brainventory_mgmt.human_resources.services.interfaces.IJobRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

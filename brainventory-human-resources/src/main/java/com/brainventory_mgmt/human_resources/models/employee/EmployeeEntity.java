@@ -3,9 +3,9 @@ package com.brainventory_mgmt.human_resources.models.employee;
 import com.brainventory_mgmt.human_resources.enums.EmployeeSex;
 import com.brainventory_mgmt.human_resources.enums.EmployeeStatus;
 import com.brainventory_mgmt.human_resources.enums.EmployeePermissions;
-import com.brainventory_mgmt.human_resources.models.employee.employeeAddress.EmployeeAddressEntity;
-import com.brainventory_mgmt.human_resources.models.employee.employeeContact.EmployeeContactEntity;
-import com.brainventory_mgmt.human_resources.models.jobRoles.JobRoleEntity;
+import com.brainventory_mgmt.human_resources.models.employee.address.AddressEntity;
+import com.brainventory_mgmt.human_resources.models.employee.contact.ContactEntity;
+import com.brainventory_mgmt.human_resources.models.employee.jobRoles.JobRoleEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -81,9 +81,9 @@ public class EmployeeEntity {
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     //@JsonManagedReference
-    List<EmployeeContactEntity> contacts;
+    List<ContactEntity> contacts;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     //@JsonManagedReference
-    List<EmployeeAddressEntity> addresses;
+    List<AddressEntity> addresses;
 }

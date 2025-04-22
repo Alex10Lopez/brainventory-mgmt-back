@@ -6,6 +6,7 @@ import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceReferenceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceRequestDTO;
 import com.brainventory_mgmt.assets.services.impl.ITDeviceServiceImpl;
 import com.brainventory_mgmt.assets.services.interfaces.IITDeviceService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class ITDeviceRestController {
     private final IITDeviceService itDeviceService;
 
     @PostMapping
-    public ResponseEntity<ITDeviceRequestDTO> saveITDevice(@RequestBody ITDeviceRequestDTO itDeviceRequestDTO){
+    public ResponseEntity<ITDeviceRequestDTO> saveITDevice(@RequestBody @Valid ITDeviceRequestDTO itDeviceRequestDTO){
         return new ResponseEntity<>(itDeviceService.saveITDevice(itDeviceRequestDTO), HttpStatus.CREATED);
     }
 
@@ -36,7 +37,7 @@ public class ITDeviceRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ITDeviceRequestDTO> updateITDevice(@RequestBody ITDeviceRequestDTO itDeviceRequestDTO, @PathVariable Long id){
+    public ResponseEntity<ITDeviceRequestDTO> updateITDevice(@RequestBody @Valid ITDeviceRequestDTO itDeviceRequestDTO, @PathVariable Long id){
         return new ResponseEntity<>(itDeviceService.updateITDevice(itDeviceRequestDTO, id), HttpStatus.OK);
     }
 

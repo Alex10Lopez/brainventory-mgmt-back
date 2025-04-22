@@ -1,11 +1,10 @@
 package com.brainventory_mgmt.auth.dto;
 
-import com.brainventory_mgmt.auth.dto.contact.ContactRegisterDTO;
+import com.brainventory_mgmt.auth.dto.profile.contact.ContactRequestDTO;
 import com.brainventory_mgmt.auth.enums.EmployeePermissions;
 import com.brainventory_mgmt.auth.enums.EmployeeSex;
 import com.brainventory_mgmt.auth.enums.EmployeeStatus;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,18 +23,22 @@ public class RegisterRequest {
     String image;
 
     @NotBlank
+    @Size(min = 2, max = 70)
     String name;
 
     @NotBlank
+    @Size(min = 2, max = 70)
     String lastname;
 
     @NotNull
+    @Past
     LocalDate dateOfBirth;
 
     @NotNull
     EmployeeSex sex;
 
     @NotBlank
+    @Size(min = 3, max = 50)
     String nationality;
 
     @NotNull
@@ -44,10 +47,14 @@ public class RegisterRequest {
     @NotNull
     EmployeeStatus status;
 
-    @NotBlank
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
+    @DecimalMin(value = "0.00")
+    @DecimalMax(value = "99999999.99")
     BigDecimal salary;
 
-    List<ContactRegisterDTO> contacts;
+    List<ContactRequestDTO> contacts;
 
+    @Size(min = 8, max = 255)
     String password;
 }

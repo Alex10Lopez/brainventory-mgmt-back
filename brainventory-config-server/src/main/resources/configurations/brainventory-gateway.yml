@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: brainventory-gateway
+
   cloud:
     gateway:
       discovery:
@@ -25,9 +26,13 @@ spring:
         - id: auth
           uri: http://localhost:9020
           predicates:
-            - Path=/auth/**
+            - Path=/auth/**,/profile/**
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+
+jwt:
+  secret: 586E3272357538782F413F4428472B4B6250655368566B597033733676397924
+  expiration: 86400000

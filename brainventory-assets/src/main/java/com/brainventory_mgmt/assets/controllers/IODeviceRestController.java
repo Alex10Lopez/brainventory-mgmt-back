@@ -4,6 +4,7 @@ import com.brainventory_mgmt.assets.dto.ioDevice.IODeviceDTO;
 import com.brainventory_mgmt.assets.dto.ioDevice.IODeviceListDTO;
 import com.brainventory_mgmt.assets.dto.ioDevice.IODeviceRequestDTO;
 import com.brainventory_mgmt.assets.services.interfaces.IIODeviceService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class IODeviceRestController {
     private final IIODeviceService ioDeviceService;
 
     @PostMapping
-    public ResponseEntity<IODeviceRequestDTO> saveIODevice(@RequestBody IODeviceRequestDTO ioDeviceRequestDTO){
+    public ResponseEntity<IODeviceRequestDTO> saveIODevice(@RequestBody @Valid IODeviceRequestDTO ioDeviceRequestDTO){
         return new ResponseEntity<>(ioDeviceService.saveIODevice(ioDeviceRequestDTO), HttpStatus.CREATED);
     }
 
@@ -34,7 +35,7 @@ public class IODeviceRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<IODeviceRequestDTO> updateIODevice(@RequestBody IODeviceRequestDTO ioDeviceRequestDTO, @PathVariable Long id){
+    public ResponseEntity<IODeviceRequestDTO> updateIODevice(@RequestBody @Valid IODeviceRequestDTO ioDeviceRequestDTO, @PathVariable Long id){
         return new ResponseEntity<>(ioDeviceService.updateIODevice(ioDeviceRequestDTO, id), HttpStatus.OK);
     }
 

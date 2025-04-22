@@ -1,9 +1,9 @@
 package com.brainventory_mgmt.assets.controllers;
 
-import com.brainventory_mgmt.assets.dto.hardware.hardwareBrand.HardwareBrandDTO;
-import com.brainventory_mgmt.assets.dto.hardware.hardwareLine.HardwareLineDTO;
-import com.brainventory_mgmt.assets.dto.hardware.hardwareName.HardwareNameDTO;
-import com.brainventory_mgmt.assets.dto.hardware.hardwareSerie.HardwareSerieDTO;
+import com.brainventory_mgmt.assets.dto.hardware.brand.BrandDTO;
+import com.brainventory_mgmt.assets.dto.hardware.line.LineDTO;
+import com.brainventory_mgmt.assets.dto.hardware.name.NameDTO;
+import com.brainventory_mgmt.assets.dto.hardware.serie.SerieDTO;
 import com.brainventory_mgmt.assets.services.interfaces.IHardwareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,32 +21,32 @@ public class HardwareRestController {
     private final IHardwareService hardwareService;
 
     @GetMapping("/it-devices")
-    public ResponseEntity<List<HardwareNameDTO>> findAllITDeviceNames(){
+    public ResponseEntity<List<NameDTO>> findAllITDeviceNames(){
         return new ResponseEntity<>(hardwareService.findAllITDeviceNames(), HttpStatus.OK);
     }
 
     @GetMapping("/io-devices")
-    public ResponseEntity<List<HardwareNameDTO>> findAllIODeviceNames(){
+    public ResponseEntity<List<NameDTO>> findAllIODeviceNames(){
         return new ResponseEntity<>(hardwareService.findAllIODeviceNames(), HttpStatus.OK);
     }
 
     @GetMapping("/brands")
-    public ResponseEntity<List<HardwareBrandDTO>> findAllHardwareBrands(){
+    public ResponseEntity<List<BrandDTO>> findAllHardwareBrands(){
         return new ResponseEntity<>(hardwareService.findAllHardwareBrands(), HttpStatus.OK);
     }
 
     @GetMapping("/it-lines")
-    public ResponseEntity<List<HardwareLineDTO>> findAllITDeviceLines(){
+    public ResponseEntity<List<LineDTO>> findAllITDeviceLines(){
         return new ResponseEntity<>(hardwareService.findAllITDeviceLines(), HttpStatus.OK);
     }
 
     @GetMapping("/io-lines")
-    public ResponseEntity<List<HardwareLineDTO>> findAllIODeviceLines(){
+    public ResponseEntity<List<LineDTO>> findAllIODeviceLines(){
         return new ResponseEntity<>(hardwareService.findAllIODeviceLines(), HttpStatus.OK);
     }
 
     @GetMapping("/series")
-    public ResponseEntity<List<HardwareSerieDTO>> findAllHardwareSeries(){
+    public ResponseEntity<List<SerieDTO>> findAllHardwareSeries(){
         return new ResponseEntity<>(hardwareService.findAllHardwareSeries(), HttpStatus.OK);
     }
 }

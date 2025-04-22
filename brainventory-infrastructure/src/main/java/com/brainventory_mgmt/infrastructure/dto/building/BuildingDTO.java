@@ -1,6 +1,6 @@
 package com.brainventory_mgmt.infrastructure.dto.building;
 
-import com.brainventory_mgmt.infrastructure.dto.building.buildingAddress.BuildingAddressDTO;
+import com.brainventory_mgmt.infrastructure.dto.building.address.AddressDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
@@ -30,5 +30,5 @@ public class BuildingDTO {
     String description;
 
     @Valid
-    BuildingAddressDTO address;
+    AddressDTO address;
 }

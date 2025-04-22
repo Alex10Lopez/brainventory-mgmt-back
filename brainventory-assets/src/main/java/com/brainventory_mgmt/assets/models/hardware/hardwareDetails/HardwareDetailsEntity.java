@@ -74,7 +74,7 @@ public class HardwareDetailsEntity {
     HardwareLineEntity hardwareLine;
 
     @ManyToOne
-    @JoinColumn(name = "id_hardware_serie")
+    @JoinColumn(name = "id_hardware_serie", nullable = false)
     HardwareSerieEntity hardwareSerie;
 
     @OneToOne(mappedBy = "hardwareDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

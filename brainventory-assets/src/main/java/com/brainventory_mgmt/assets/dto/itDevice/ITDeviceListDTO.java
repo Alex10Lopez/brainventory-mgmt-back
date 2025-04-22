@@ -13,7 +13,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ITDeviceListDTO {
     Long id;
-
     String image;
 
     HardwareDetailsReferenceDTO hardwareDetails;

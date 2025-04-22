@@ -1,19 +1,16 @@
 package com.brainventory_mgmt.human_resources.dto.employee;
 
-import com.brainventory_mgmt.human_resources.dto.employee.employeeContact.EmployeeContactDTO;
-import com.brainventory_mgmt.human_resources.dto.jobRole.JobRoleDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.contact.ContactDTO;
+import com.brainventory_mgmt.human_resources.dto.employee.jobRole.JobRoleDTO;
 import com.brainventory_mgmt.human_resources.enums.EmployeePermissions;
 import com.brainventory_mgmt.human_resources.enums.EmployeeSex;
 import com.brainventory_mgmt.human_resources.enums.EmployeeStatus;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +32,7 @@ public class EmployeeListDTO {
 
     EmployeeStatus status;
 
-    List<EmployeeContactDTO> contacts;
+    List<ContactDTO> contacts;
 
     LocalDateTime loginDate;
 }
