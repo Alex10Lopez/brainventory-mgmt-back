@@ -6,5 +6,6 @@ import com.brainventory_mgmt.auth.dto.RegisterRequest;
 
 public interface IAuthService {
     AuthResponse login(LoginRequest loginRequest);
+
     AuthResponse register(RegisterRequest registerRequest);
 }

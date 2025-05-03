@@ -62,7 +62,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public EmployeeDTO findById(Long id) {
         EmployeeEntity employee = employeeRepository.findById(id)

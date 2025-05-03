@@ -12,13 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ContactRequestDTO {
     Long id;
-
-    @NotBlank
-    @Size(min = 10, max = 25)
     String phoneNumber;
-
-    @NotBlank
-    @Size(min = 5 , max = 255)
-    @Email
     String email;
 }
