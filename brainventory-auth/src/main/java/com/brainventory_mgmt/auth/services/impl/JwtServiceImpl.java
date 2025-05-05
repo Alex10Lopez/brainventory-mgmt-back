@@ -1,5 +1,6 @@
 package com.brainventory_mgmt.auth.services.impl;
 
+import com.brainventory_mgmt.auth.models.EmployeeAuthEntity;
 import com.brainventory_mgmt.auth.services.interfaces.IJwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -21,7 +22,11 @@ public class JwtServiceImpl implements IJwtService {
 
     @Override
     public String getToken(UserDetails employee) {
-        return getToken(new HashMap<>(), employee);
+        Map<String, Object> extraClaims = new HashMap<>();
+        if (employee instanceof EmployeeAuthEntity) {
+            extraClaims.put("permissions", ((EmployeeAuthEntity) employee).getPermissions().name());
+        }
+        return getToken(extraClaims, employee);
     }
 
     private String getToken(Map<String, Object> extraClaims, UserDetails employee){

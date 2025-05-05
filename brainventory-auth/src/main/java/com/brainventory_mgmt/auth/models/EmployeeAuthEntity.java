@@ -92,8 +92,7 @@ public class EmployeeAuthEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((permissions.name())));
-    }
+        return List.of(new SimpleGrantedAuthority("ROLE_" + permissions.name()));    }
 
     public String getEmail() {
         if (contacts != null && !contacts.isEmpty()) {

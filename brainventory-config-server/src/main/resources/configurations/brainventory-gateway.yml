@@ -12,19 +12,19 @@ spring:
           enabled: false
       routes:
         - id: humanResources
-          uri: http://localhost:8090
+          uri: lb://HUMAN-RESOURCES
           predicates:
             - Path=/api/employee/**,/api/job-role/**
         - id: infrastructure
-          uri: http://localhost:9000
+          uri: lb://INFRASTRUCTURE
           predicates:
             - Path=/api/building/**,/api/room/**,/api/room-device/**,/api/department/**
         - id: assets
-          uri: http://localhost:9010
+          uri: lb://ASSETS
           predicates:
             - Path=/api/it-device/**,/api/io-device/**,/api/hardware/**
         - id: auth
-          uri: http://localhost:9020
+          uri: lb://AUTH
           predicates:
             - Path=/auth/**,/profile/**
 
