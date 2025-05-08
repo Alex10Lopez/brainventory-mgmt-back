@@ -3,6 +3,9 @@ spring:
     name: brainventory-auth
   config:
     import: optional:configserver:http://localhost:8888
+  web:
+    resources:
+      static-locations: file:C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/human-resources/employees
 
 logging:
   level:

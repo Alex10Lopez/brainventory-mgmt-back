@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getPath().toString();
 
         // Excluir endpoints de autenticación
-        if (path.startsWith("/auth/")) {
+        if (path.startsWith("/auth/") || path.startsWith("/api/job-role")) {
             return chain.filter(exchange);
         }
 
@@ -59,8 +59,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         }
 
         // Rutas de HR
-        List<String> hrPaths = Arrays.asList("/api/employee", "/api/job-role");
-        if (hrPaths.stream().anyMatch(path::startsWith)) {
+        if (path.startsWith("/api/employee")) {
             return "HR_ADMIN".equals(permission);
         }
 

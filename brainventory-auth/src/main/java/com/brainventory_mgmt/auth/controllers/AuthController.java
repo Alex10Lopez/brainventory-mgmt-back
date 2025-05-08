@@ -7,10 +7,8 @@ import com.brainventory_mgmt.auth.services.interfaces.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,9 +22,10 @@ public class AuthController {
         return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(authService.register(registerRequest));
+    @PostMapping(value = "/register", consumes = {"multipart/form-data"})
+    public ResponseEntity<AuthResponse> register(@RequestPart("admin") RegisterRequest registerRequest,
+                                                 @RequestPart(value = "image", required = false) MultipartFile image){
+        return ResponseEntity.ok(authService.register(registerRequest, image));
         //return new ResponseEntity<>(authService.register(registerRequest), HttpStatus.OK);
     }
 }

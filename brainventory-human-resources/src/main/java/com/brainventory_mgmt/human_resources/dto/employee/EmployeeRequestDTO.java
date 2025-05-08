@@ -24,7 +24,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmployeeRequestDTO {
     Long id;
-    String image;
 
     @NotBlank
     @Size(min = 2, max = 70)

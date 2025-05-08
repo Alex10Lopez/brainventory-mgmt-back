@@ -3,3 +3,8 @@ spring:
     name: brainventory-human-resources
   config:
     import: optional:configserver:http://localhost:8888
+  mvc:
+    static-path-pattern: /images/**
+  web:
+    resources:
+      static-locations: file:C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/human-resources/employees

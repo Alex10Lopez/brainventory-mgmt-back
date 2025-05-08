@@ -1,9 +1,11 @@
 package com.brainventory_mgmt.auth.dto;
 
 import com.brainventory_mgmt.auth.dto.profile.contact.ContactRequestDTO;
+import com.brainventory_mgmt.auth.dto.profile.jobRole.JobRoleDTO;
 import com.brainventory_mgmt.auth.enums.EmployeePermissions;
 import com.brainventory_mgmt.auth.enums.EmployeeSex;
 import com.brainventory_mgmt.auth.enums.EmployeeStatus;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,7 +43,6 @@ public class RegisterRequest {
     @Size(min = 3, max = 50)
     String nationality;
 
-    @NotNull
     EmployeePermissions permissions;
 
     @NotNull
@@ -52,6 +53,9 @@ public class RegisterRequest {
     @DecimalMin(value = "0.00")
     @DecimalMax(value = "99999999.99")
     BigDecimal salary;
+
+    @Valid
+    List<JobRoleDTO> jobRoles;
 
     List<ContactRequestDTO> contacts;
 

@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -18,14 +21,22 @@ import java.util.List;
 public class EmployeeRestController {
     private final IEmployeeService employeeService;
 
-    @PostMapping
-    public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestBody @Valid EmployeeRequestDTO employeeCreateDTO){
-        return new ResponseEntity<>(employeeService.saveEmployee(employeeCreateDTO), HttpStatus.CREATED);
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestPart("employee") @Valid EmployeeRequestDTO employeeCreateDTO,
+                                                           @RequestPart(value = "image", required = false) MultipartFile image){
+        return new ResponseEntity<>(employeeService.saveEmployee(employeeCreateDTO, image), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<EmployeeListDTO>> findAll(){
-        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    @GetMapping("/all/{encodedEmail}")
+    public ResponseEntity<List<EmployeeListDTO>> findAllEmployees(@PathVariable String encodedEmail) {
+        try {
+            String email = URLDecoder.decode(encodedEmail, StandardCharsets.UTF_8);
+            List<EmployeeListDTO> employeeList = employeeService.findAllEmployees(email);
+
+            return ResponseEntity.ok(employeeList);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{id}")
@@ -33,9 +44,11 @@ public class EmployeeRestController {
         return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<EmployeeRequestDTO> updateEmployee(@RequestBody @Valid EmployeeRequestDTO employeeRequestDTO, @PathVariable Long id){
-        return new ResponseEntity<>(employeeService.updateEmployee(employeeRequestDTO, id), HttpStatus.OK);
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<EmployeeRequestDTO> updateEmployee(@RequestPart("employee") @Valid EmployeeRequestDTO employeeRequestDTO,
+                                                             @RequestPart(value = "image", required = false) MultipartFile image,
+                                                             @PathVariable Long id){
+        return new ResponseEntity<>(employeeService.updateEmployee(employeeRequestDTO, image, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

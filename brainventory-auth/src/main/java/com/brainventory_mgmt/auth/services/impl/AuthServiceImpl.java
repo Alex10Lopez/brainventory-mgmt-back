@@ -3,6 +3,8 @@ package com.brainventory_mgmt.auth.services.impl;
 import com.brainventory_mgmt.auth.dto.AuthResponse;
 import com.brainventory_mgmt.auth.dto.LoginRequest;
 import com.brainventory_mgmt.auth.dto.RegisterRequest;
+import com.brainventory_mgmt.auth.enums.EmployeePermissions;
+import com.brainventory_mgmt.auth.enums.EmployeeStatus;
 import com.brainventory_mgmt.auth.models.EmployeeAuthEntity;
 import com.brainventory_mgmt.auth.models.contact.ContactEntity;
 import com.brainventory_mgmt.auth.repository.EmployeeRepository;
@@ -15,6 +17,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +41,8 @@ public class AuthServiceImpl implements IAuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         UserDetails employee = employeeRepository.findByContactsEmail(request.getEmail()).orElseThrow();
 
+        employeeRepository.updateLoginDateByEmail(request.getEmail(), LocalDateTime.now());
+
         String token = jwtService.getToken(employee);
 
         return AuthResponse.builder()
@@ -41,21 +51,42 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public AuthResponse register(RegisterRequest request) {
-        EmployeeAuthEntity employeeAuthEntity = modelMapper.map(request, EmployeeAuthEntity.class);
+    public AuthResponse register(RegisterRequest request, MultipartFile image) {
+        if (employeeRepository.existsByPermissions(EmployeePermissions.GLOBAL_ADMIN)) {
+            throw new IllegalStateException("No se permite el registro. Ya existe un Administrador global.");
+        }
 
-        employeeAuthEntity.setPassword(passwordEncoder.encode(request.getPassword()));
+        request.setPermissions(EmployeePermissions.GLOBAL_ADMIN);
+        request.setStatus(EmployeeStatus.ACTIVE);
 
-        for (ContactEntity contact : employeeAuthEntity.getContacts())
-            contact.setEmployee(employeeAuthEntity);
+        try{
+            EmployeeAuthEntity employeeAuthEntity = modelMapper.map(request, EmployeeAuthEntity.class);
 
-        EmployeeAuthEntity savedEmployee = employeeRepository.save(employeeAuthEntity);
+            employeeAuthEntity.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        //return AuthResponse.builder().token(jwtService.getToken(savedEmployee)).build();
+            for (ContactEntity contact : employeeAuthEntity.getContacts())
+                contact.setEmployee(employeeAuthEntity);
 
-        AuthResponse authResponse = modelMapper.map(savedEmployee, AuthResponse.class);
-        authResponse.setToken(jwtService.getToken(savedEmployee));
+            if (image != null && !image.isEmpty()) {
+                String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/human-resources/employees/";
+                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path path = Paths.get(folderPath + filename);
+                Files.createDirectories(path.getParent());
+                Files.write(path, image.getBytes());
+                employeeAuthEntity.setImage("/images/human-resources/employees/" + filename);
+            }
 
-        return authResponse;
+            EmployeeAuthEntity savedEmployee = employeeRepository.save(employeeAuthEntity);
+
+            //return AuthResponse.builder().token(jwtService.getToken(savedEmployee)).build();
+
+            AuthResponse authResponse = modelMapper.map(savedEmployee, AuthResponse.class);
+            authResponse.setToken(jwtService.getToken(savedEmployee));
+
+            return authResponse;
+        } catch (Exception e){
+            //e.printStackTrace();
+            throw new UnsupportedOperationException("Error saving the admin!");
+        }
     }
 }
