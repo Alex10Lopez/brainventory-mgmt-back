@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,9 +19,10 @@ import java.util.List;
 public class RoomRestController {
     private final IRoomService roomService;
 
-    @PostMapping
-    public ResponseEntity<RoomRequestDTO> saveRoom(@RequestBody @Valid RoomRequestDTO roomRequestDTO){
-        return new ResponseEntity<>(roomService.saveRoom(roomRequestDTO), HttpStatus.CREATED);
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<RoomRequestDTO> saveRoom(@RequestPart("room") @Valid RoomRequestDTO roomRequestDTO,
+                                                   @RequestPart(value = "image", required = false) MultipartFile image){
+        return new ResponseEntity<>(roomService.saveRoom(roomRequestDTO, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -33,9 +35,11 @@ public class RoomRestController {
         return new ResponseEntity<>(roomService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RoomRequestDTO> updateRoom(@RequestBody @Valid RoomRequestDTO roomRequestDTO, @PathVariable Long id){
-        return new ResponseEntity<>(roomService.updateRoom(roomRequestDTO, id), HttpStatus.OK);
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<RoomRequestDTO> updateRoom(@RequestPart("room") @Valid RoomRequestDTO roomRequestDTO,
+                                                     @RequestPart(value = "image", required = false) MultipartFile image,
+                                                     @PathVariable Long id){
+        return new ResponseEntity<>(roomService.updateRoom(roomRequestDTO, image, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

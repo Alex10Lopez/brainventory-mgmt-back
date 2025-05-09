@@ -126,6 +126,11 @@ public class EmployeeAuthEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return switch (this.status) {
+            case ACTIVE, ON_VACATION, SICK_LEAVE, PARENTAL_LEAVE,
+                 UNPAID_LEAVE, TRAINING, TEMPORARY, PROBATION,
+                 PENDING_ASSIGNMENT, CONTRACT, INTERN -> true;
+            default -> false;
+        };
     }
 }

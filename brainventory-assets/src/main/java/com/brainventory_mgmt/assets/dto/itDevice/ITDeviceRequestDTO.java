@@ -15,7 +15,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ITDeviceRequestDTO {
     Long id;
-    String image;
 
     @Valid
     HardwareDetailsRequestDTO hardwareDetails;

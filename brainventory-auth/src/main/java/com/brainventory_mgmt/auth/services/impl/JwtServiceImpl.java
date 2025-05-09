@@ -25,6 +25,7 @@ public class JwtServiceImpl implements IJwtService {
         Map<String, Object> extraClaims = new HashMap<>();
         if (employee instanceof EmployeeAuthEntity) {
             extraClaims.put("permissions", ((EmployeeAuthEntity) employee).getPermissions().name());
+            extraClaims.put("status", ((EmployeeAuthEntity) employee).getStatus().name());
         }
         return getToken(extraClaims, employee);
     }
@@ -44,6 +45,10 @@ public class JwtServiceImpl implements IJwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
 
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String getStatusFromToken(String token) {
+        return getClaim(token, claims -> claims.get("status", String.class));
     }
 
     public String getUsernameFromToken(String token){

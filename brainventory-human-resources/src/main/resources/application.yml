@@ -7,4 +7,4 @@ spring:
     static-path-pattern: /images/**
   web:
     resources:
-      static-locations: file:C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/human-resources/employees
+      static-locations: file:C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images

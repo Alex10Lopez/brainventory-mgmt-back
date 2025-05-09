@@ -85,11 +85,33 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public EmployeeRequestDTO updateEmployee(EmployeeRequestDTO employeeRequestDTO, MultipartFile image, Long id) {
+
         EmployeeEntity existingEmployee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
 
         EmployeeEntity updatedEmployee = modelMapper.map(employeeRequestDTO, EmployeeEntity.class);
         updatedEmployee.setId(id);
+
+        if (image != null && !image.isEmpty()) {
+            try {
+                String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/human-resources/employees/";
+                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path path = Paths.get(folderPath + filename);
+                Files.createDirectories(path.getParent());
+                Files.write(path, image.getBytes());
+                updatedEmployee.setImage("/images/human-resources/employees/" + filename);
+
+                if (existingEmployee.getImage() != null && !existingEmployee.getImage().isBlank()) {
+                    String basePath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt";
+                    Path oldImagePath = Paths.get(basePath + existingEmployee.getImage());
+                    Files.deleteIfExists(oldImagePath);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating employee image: " + e.getMessage());
+            }
+        } else {
+            updatedEmployee.setImage(existingEmployee.getImage());
+        }
 
         for (AddressEntity address : updatedEmployee.getAddresses())
             address.setEmployee(updatedEmployee);
@@ -106,32 +128,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
             }
         } else {
             updatedEmployee.setPassword(existingEmployee.getPassword());
-        }
-
-        if (image != null && !image.isEmpty()) {
-            if (existingEmployee.getImage() != null && !existingEmployee.getImage().isBlank()) {
-                String basePath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt";
-                Path oldImagePath = Paths.get(basePath + existingEmployee.getImage());
-                try {
-                    Files.deleteIfExists(oldImagePath);
-                } catch (Exception e) {
-                    throw new RuntimeException("Error deleting previous employee image: " + e.getMessage());
-                }
-            }
-
-            String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/human-resources/employees/";
-            String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-            Path path = Paths.get(folderPath + filename);
-            try {
-                Files.createDirectories(path.getParent());
-                Files.write(path, image.getBytes());
-                updatedEmployee.setImage("/images/human-resources/employees/" + filename);
-            } catch (Exception e) {
-                throw new RuntimeException("Error saving new image: " + e.getMessage());
-            }
-        } else {
-            // Mantener imagen previa si no se actualiza
-            updatedEmployee.setImage(existingEmployee.getImage());
         }
 
         EmployeeEntity savedEmployee = employeeRepository.save(updatedEmployee);

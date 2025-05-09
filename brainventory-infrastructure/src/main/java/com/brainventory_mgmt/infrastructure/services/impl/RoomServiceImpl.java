@@ -9,7 +9,11 @@ import com.brainventory_mgmt.infrastructure.services.intefaces.IRoomService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +24,18 @@ public class RoomServiceImpl implements IRoomService {
     private final ModelMapper modelMapper;
 
     @Override
-    public RoomRequestDTO saveRoom(RoomRequestDTO roomRequestDTO) {
+    public RoomRequestDTO saveRoom(RoomRequestDTO roomRequestDTO, MultipartFile image) {
         try {
             RoomEntity room = modelMapper.map(roomRequestDTO, RoomEntity.class);
+
+            if (image != null && !image.isEmpty()) {
+                String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/infrastructure/rooms/";
+                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path path = Paths.get(folderPath + filename);
+                Files.createDirectories(path.getParent());
+                Files.write(path, image.getBytes());
+                room.setImage("/images/infrastructure/rooms/" + filename);
+            }
 
             RoomEntity savedRoom = roomRepository.save(room);
 
@@ -49,12 +62,33 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public RoomRequestDTO updateRoom(RoomRequestDTO roomRequestDTO, Long id) {
+    public RoomRequestDTO updateRoom(RoomRequestDTO roomRequestDTO, MultipartFile image, Long id) {
         RoomEntity existingRoom = roomRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Room not found"));
 
         RoomEntity updatedRoom = modelMapper.map(roomRequestDTO, RoomEntity.class);
         updatedRoom.setId(id);
+
+        if (image != null && !image.isEmpty()) {
+            try {
+                String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/infrastructure/rooms/";
+                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path path = Paths.get(folderPath + filename);
+                Files.createDirectories(path.getParent());
+                Files.write(path, image.getBytes());
+                updatedRoom.setImage("/images/infrastructure/rooms/" + filename);
+
+                if (existingRoom.getImage() != null && !existingRoom.getImage().isBlank()) {
+                    String basePath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt";
+                    Path oldImagePath = Paths.get(basePath + existingRoom.getImage());
+                    Files.deleteIfExists(oldImagePath);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating room image: " + e.getMessage());
+            }
+        } else {
+            updatedRoom.setImage(existingRoom.getImage());
+        }
 
         RoomEntity savedRoom = roomRepository.save(updatedRoom);
 
@@ -63,8 +97,18 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public void deleteRoom(Long id) {
-        if(!roomRepository.existsById(id))
-            throw new RuntimeException("Building not found");
+        RoomEntity room = roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        if (room.getImage() != null && !room.getImage().isBlank()) {
+            String basePath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt";
+            Path imagePath = Paths.get(basePath + room.getImage());
+            try {
+                Files.deleteIfExists(imagePath);
+            } catch (Exception e) {
+                throw new RuntimeException("Error deleting room image: " + e.getMessage());
+            }
+        }
 
         roomRepository.deleteById(id);
     }

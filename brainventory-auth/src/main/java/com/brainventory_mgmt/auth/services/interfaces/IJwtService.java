@@ -8,4 +8,6 @@ public interface IJwtService {
     String getUsernameFromToken(String token);
 
     boolean isTokenValid(String token, UserDetails userDetails);
+
+    String getStatusFromToken(String token);
 }

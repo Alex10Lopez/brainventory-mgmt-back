@@ -22,8 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegisterRequest {
-    String image;
-
     @NotBlank
     @Size(min = 2, max = 70)
     String name;

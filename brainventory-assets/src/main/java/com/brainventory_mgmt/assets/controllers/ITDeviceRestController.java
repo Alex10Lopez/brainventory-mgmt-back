@@ -4,14 +4,13 @@ import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceListDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceReferenceDTO;
 import com.brainventory_mgmt.assets.dto.itDevice.ITDeviceRequestDTO;
-import com.brainventory_mgmt.assets.services.impl.ITDeviceServiceImpl;
 import com.brainventory_mgmt.assets.services.interfaces.IITDeviceService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,9 +20,10 @@ import java.util.List;
 public class ITDeviceRestController {
     private final IITDeviceService itDeviceService;
 
-    @PostMapping
-    public ResponseEntity<ITDeviceRequestDTO> saveITDevice(@RequestBody @Valid ITDeviceRequestDTO itDeviceRequestDTO){
-        return new ResponseEntity<>(itDeviceService.saveITDevice(itDeviceRequestDTO), HttpStatus.CREATED);
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<ITDeviceRequestDTO> saveITDevice(@RequestPart("itDevice") @Valid ITDeviceRequestDTO itDeviceRequestDTO,
+                                                           @RequestPart(value = "image", required = false) MultipartFile image){
+        return new ResponseEntity<>(itDeviceService.saveITDevice(itDeviceRequestDTO, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -36,9 +36,11 @@ public class ITDeviceRestController {
         return new ResponseEntity<>(itDeviceService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ITDeviceRequestDTO> updateITDevice(@RequestBody @Valid ITDeviceRequestDTO itDeviceRequestDTO, @PathVariable Long id){
-        return new ResponseEntity<>(itDeviceService.updateITDevice(itDeviceRequestDTO, id), HttpStatus.OK);
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<ITDeviceRequestDTO> updateITDevice(@RequestPart("itDevice") @Valid ITDeviceRequestDTO itDeviceRequestDTO,
+                                                             @RequestPart(value = "image", required = false) MultipartFile image,
+                                                             @PathVariable Long id){
+        return new ResponseEntity<>(itDeviceService.updateITDevice(itDeviceRequestDTO, image, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

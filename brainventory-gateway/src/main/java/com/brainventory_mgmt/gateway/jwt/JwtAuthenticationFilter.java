@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         String path = exchange.getRequest().getPath().toString();
 
         // Excluir endpoints de autenticación
-        if (path.startsWith("/auth/") || path.startsWith("/api/job-role")) {
+        if (path.startsWith("/auth/") || path.startsWith("/api/job-role") || path.startsWith("/api/room-device") || path.startsWith("/api/room/references")) {
             return chain.filter(exchange);
         }
 
@@ -70,14 +70,9 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         }
 
         // Rutas de Assets
-        List<String> assetsPaths = Arrays.asList("/api/it-device", "/api/io-device", "/api/hardware");
+        List<String> assetsPaths = Arrays.asList("/api/it-device", "/api/io-device", "/api/hardware", "/api/room/references");
         if (assetsPaths.stream().anyMatch(path::startsWith)) {
             return "ASSETS_ADMIN".equals(permission);
-        }
-
-        // Ruta room-device (compartida)
-        if (path.startsWith("/api/room-device")) {
-            return "ASSETS_ADMIN".equals(permission) || "INFRASTRUCTURE_ADMIN".equals(permission);
         }
 
         return false;

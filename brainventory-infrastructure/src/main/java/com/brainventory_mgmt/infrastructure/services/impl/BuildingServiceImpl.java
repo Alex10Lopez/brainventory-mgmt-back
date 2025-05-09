@@ -3,6 +3,7 @@ package com.brainventory_mgmt.infrastructure.services.impl;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingDTO;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingListDTO;
 import com.brainventory_mgmt.infrastructure.dto.building.BuildingReferenceDTO;
+import com.brainventory_mgmt.infrastructure.dto.building.BuildingRequestDTO;
 import com.brainventory_mgmt.infrastructure.models.building.BuildingEntity;
 import com.brainventory_mgmt.infrastructure.repository.IBuildingRepository;
 import com.brainventory_mgmt.infrastructure.services.intefaces.IBuildingService;
@@ -10,7 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,16 +27,25 @@ public class BuildingServiceImpl implements IBuildingService {
 
 
     @Override
-    public BuildingDTO saveBuilding(BuildingDTO buildingDTO) {
+    public BuildingRequestDTO saveBuilding(BuildingRequestDTO buildingRequestDTO, MultipartFile image) {
         try{
-            BuildingEntity building = modelMapper.map(buildingDTO, BuildingEntity.class);
+            BuildingEntity building = modelMapper.map(buildingRequestDTO, BuildingEntity.class);
 
             if(building.getAddress() != null)
                 building.getAddress().setBuilding(building);
 
+            if (image != null && !image.isEmpty()) {
+                String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/infrastructure/buildings/";
+                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path path = Paths.get(folderPath + filename);
+                Files.createDirectories(path.getParent());
+                Files.write(path, image.getBytes());
+                building.setImage("/images/infrastructure/buildings/" + filename);
+            }
+
             BuildingEntity savedBuilding = buildingRepository.save(building);
 
-            return modelMapper.map(savedBuilding, BuildingDTO.class);
+            return modelMapper.map(savedBuilding, BuildingRequestDTO.class);
         } catch (Exception e){
             throw new UnsupportedOperationException("Error saving the building!");
         }
@@ -54,25 +68,52 @@ public class BuildingServiceImpl implements IBuildingService {
     }
 
     @Override
-    public BuildingDTO updateBuilding(BuildingDTO buildingDTO, Long id) {
+    public BuildingRequestDTO updateBuilding(BuildingRequestDTO buildingRequestDTO, MultipartFile image, Long id) {
         BuildingEntity existingBuilding = buildingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Building not found"));
 
-        BuildingEntity updatedBuilding = modelMapper.map(buildingDTO, BuildingEntity.class);
-        updatedBuilding.setId(id);
+        modelMapper.map(buildingRequestDTO, existingBuilding);
+        existingBuilding.setId(id);
+        String existingImage = existingBuilding.getImage();
 
-        if(updatedBuilding.getAddress() != null)
-            updatedBuilding.getAddress().setBuilding(updatedBuilding);
+        if (image != null && !image.isEmpty()) {
+            try {
+                String folderPath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt/images/infrastructure/buildings/";
+                String filename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path path = Paths.get(folderPath + filename);
+                Files.createDirectories(path.getParent());
+                Files.write(path, image.getBytes());
+                existingBuilding.setImage("/images/infrastructure/buildings/" + filename);
 
-        BuildingEntity savedBuilding = buildingRepository.save(updatedBuilding);
+                if (existingBuilding.getImage() != null && !existingBuilding.getImage().isBlank()) {
+                    String basePath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt";
+                    Path oldImagePath = Paths.get(basePath + existingImage);
+                    Files.deleteIfExists(oldImagePath);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating building image: " + e.getMessage());
+            }
+        }
 
-        return modelMapper.map(savedBuilding, BuildingDTO.class);
+        BuildingEntity savedBuilding = buildingRepository.save(existingBuilding);
+
+        return modelMapper.map(savedBuilding, BuildingRequestDTO.class);
     }
 
     @Override
     public void deleteBuilding(Long id) {
-        if(!buildingRepository.existsById(id))
-            throw new RuntimeException("Building not found");
+        BuildingEntity building = buildingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Building not found"));
+
+        if (building.getImage() != null && !building.getImage().isBlank()) {
+            String basePath = "C:/Users/lopez/Documents/UAEH_LCA/9_Noveno_Semestre/Proyectos_Computacionales/brainventory-mgmt";
+            Path imagePath = Paths.get(basePath + building.getImage());
+            try {
+                Files.deleteIfExists(imagePath);
+            } catch (Exception e) {
+                throw new RuntimeException("Error deleting building image: " + e.getMessage());
+            }
+        }
 
         buildingRepository.deleteById(id);
     }

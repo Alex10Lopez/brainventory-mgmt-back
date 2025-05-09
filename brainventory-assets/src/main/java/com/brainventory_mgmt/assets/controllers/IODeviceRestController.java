@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,9 +20,10 @@ import java.util.List;
 public class IODeviceRestController {
     private final IIODeviceService ioDeviceService;
 
-    @PostMapping
-    public ResponseEntity<IODeviceRequestDTO> saveIODevice(@RequestBody @Valid IODeviceRequestDTO ioDeviceRequestDTO){
-        return new ResponseEntity<>(ioDeviceService.saveIODevice(ioDeviceRequestDTO), HttpStatus.CREATED);
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<IODeviceRequestDTO> saveIODevice(@RequestPart("ioDevice")  @Valid IODeviceRequestDTO ioDeviceRequestDTO,
+                                                           @RequestPart(value = "image", required = false) MultipartFile image){
+        return new ResponseEntity<>(ioDeviceService.saveIODevice(ioDeviceRequestDTO, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -34,9 +36,11 @@ public class IODeviceRestController {
         return new ResponseEntity<>(ioDeviceService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<IODeviceRequestDTO> updateIODevice(@RequestBody @Valid IODeviceRequestDTO ioDeviceRequestDTO, @PathVariable Long id){
-        return new ResponseEntity<>(ioDeviceService.updateIODevice(ioDeviceRequestDTO, id), HttpStatus.OK);
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<IODeviceRequestDTO> updateIODevice(@RequestPart("ioDevice") @Valid IODeviceRequestDTO ioDeviceRequestDTO,
+                                                             @RequestPart(value = "image", required = false) MultipartFile image,
+                                                             @PathVariable Long id){
+        return new ResponseEntity<>(ioDeviceService.updateIODevice(ioDeviceRequestDTO, image, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

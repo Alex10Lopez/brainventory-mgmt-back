@@ -1,5 +1,7 @@
 package com.brainventory_mgmt.auth.jwt;
 
+import com.brainventory_mgmt.auth.enums.EmployeePermissions;
+import com.brainventory_mgmt.auth.enums.EmployeeStatus;
 import com.brainventory_mgmt.auth.services.interfaces.IJwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

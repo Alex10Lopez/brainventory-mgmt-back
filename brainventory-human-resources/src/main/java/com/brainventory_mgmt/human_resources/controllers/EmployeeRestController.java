@@ -22,9 +22,9 @@ public class EmployeeRestController {
     private final IEmployeeService employeeService;
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestPart("employee") @Valid EmployeeRequestDTO employeeCreateDTO,
+    public ResponseEntity<EmployeeRequestDTO> saveEmployee(@RequestPart("employee") @Valid EmployeeRequestDTO employeeRequestDTO,
                                                            @RequestPart(value = "image", required = false) MultipartFile image){
-        return new ResponseEntity<>(employeeService.saveEmployee(employeeCreateDTO, image), HttpStatus.CREATED);
+        return new ResponseEntity<>(employeeService.saveEmployee(employeeRequestDTO, image), HttpStatus.CREATED);
     }
 
     @GetMapping("/all/{encodedEmail}")
